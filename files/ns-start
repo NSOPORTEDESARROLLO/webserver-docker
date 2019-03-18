@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+trap "/usr/sbin/apache2ctl stop" EXIT
+
+/usr/sbin/apache2ctl -DFOREGROUND
+
+
+
+exit 0
