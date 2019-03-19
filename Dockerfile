@@ -20,12 +20,19 @@ EXPOSE		80/tcp
 
 
 ######### Create Skeel, put this at the end #######
-RUN			tar -czvf /opt/sites-enabled.tgz /etc/apache2/sites-enabled; \
-			tar -czvf /opt/conf-enabled /etc/apache2/conf-enabled ; \
-			tar -czvf /opt/mods-enabled.tgz /etc/apache2/mods-enabled; \
-			tar -czvf /opt/log.tgz /var/log/apache2; \
-			tar -czvf /opt/html.tgz /var/www/html; \
-			mkdir /log /modules /sites
+RUN			tar -czvf /opt/config.tgz /etc/apache2/*; \
+			rm -rf /etc/apache2; \
+			mkdir /log /config /html; \
+			mv /var/www/html/index.html /opt; \
+			rm -rf /var/www/html; \
+			ln -s /html /var/www/html; \
+			ln -s /config /etc/apache2; \
+			rm -rf /var/log/apache2; \
+			ln -s /log /var/log/apache2; \ 
+			chown -R www-data.www-data /log; \
+			chown -R www-data.www-data /config; \
+			chown -R www-data.www-data /html
+
 
 
 

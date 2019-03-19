@@ -1,8 +1,27 @@
 #!/bin/bash
 
 
-trap "/usr/sbin/apache2ctl stop" EXIT
+#Check for config files
+CONF=$(ls -A /config)
+www=$(ls -A /html)
 
+
+if [ "$CONF" =  "" ];then
+
+	tar -xzvf /opt/config.tgz -C /config/
+
+fi
+
+#www
+if [ "$www" =  "" ];then
+
+	cp -rfv /opt/index.html /html/
+
+fi
+
+
+#Main Job
+trap "/usr/sbin/apache2ctl stop" EXIT
 /usr/sbin/apache2ctl -DFOREGROUND
 
 
