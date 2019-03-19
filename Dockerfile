@@ -20,7 +20,9 @@ EXPOSE		80/tcp
 
 
 ######### Create Skeel, put this at the end #######
-RUN			tar -czvf /opt/config.tgz /etc/apache2/*; \
+
+RUN			cd /etc/apache2; \
+			tar -czvf /opt/config.tgz *; \
 			rm -rf /etc/apache2; \
 			mkdir /log /config /html; \
 			mv /var/www/html/index.html /opt; \
