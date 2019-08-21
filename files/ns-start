@@ -20,10 +20,9 @@ if [ "$www" =  "" ];then
 fi
 
 
+chown -R www-data.www-data /config
+chown -R www-data.www-data /html
+
+
 #Main Job
-trap "/usr/sbin/apache2ctl stop" EXIT
-/usr/sbin/apache2ctl -DFOREGROUND
-
-
-
-exit 0
+exec /usr/sbin/apache2ctl -DFOREGROUND
